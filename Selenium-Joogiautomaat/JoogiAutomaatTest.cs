@@ -59,7 +59,7 @@ namespace Selenium_Joogiautomaat
 
             IWebElement addDrinkButton = driver.FindElement(By.XPath("/html/body/div[3]/form/div[3]/button"));
 
-            int initialChildCount = driver.FindElements(By.XPath(".//div[@class='inventoryForm']/div")).Count;
+            int initialDrinkCount = driver.FindElements(By.XPath(".//div[@class='inventoryForm']/div")).Count;
 
             drinkInputBox.SendKeys(randomString);
             cupInputBox.SendKeys(randomNumberAsString);
@@ -68,19 +68,18 @@ namespace Selenium_Joogiautomaat
 
             wait.Until(driver =>
             {
-                int currentChildCount = driver.FindElements(By.XPath("//div[@class='inventoryForm']/div")).Count;
-                return currentChildCount > initialChildCount;
+                int currentDrinkCount = driver.FindElements(By.XPath("//div[@class='inventoryForm']/div")).Count;
+                return currentDrinkCount > initialDrinkCount;
             });
 
-            IWebElement lastChildDiv = driver.FindElement(By.XPath("//div[@class='inventoryForm']/div[last()]"));
+            IWebElement lastDrinkDiv = driver.FindElement(By.XPath("//div[@class='inventoryForm']/div[last()]"));
 
-            Assert.IsTrue(lastChildDiv.Text.Contains(randomString));
+            Assert.IsTrue(lastDrinkDiv.Text.Contains(randomString));
         }
 
         [Test]
         public void FillLastDrink() 
         {
-   
             IWebElement lastDrink = driver.FindElement(By.XPath("//div[@class='inventoryForm']/div[last()]"));
             IWebElement valueElement = lastDrink.FindElement(By.XPath(".//div[@class='col-md-2 larger-text']"));
             string initialValue = valueElement.Text.Split(' ')[1];
